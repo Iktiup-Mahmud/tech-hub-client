@@ -11,7 +11,7 @@ const Header = () => {
             {/* <Link>Link</Link> */}
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
-                    <Image src={'https://i.postimg.cc/yN7vm0PB/default-logo.png'} roundedCircle fluid style={{width:'4em'}}></Image>
+                    <Image src={'https://i.postimg.cc/cL8DV4MD/default.png'} roundedCircle fluid style={{width:'4em'}}></Image>
                     <Navbar.Brand href=""><Link className='text-decoration-none text-success' to='/'><h2>Tech-Hub</h2></Link></Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
@@ -35,7 +35,7 @@ const Header = () => {
 
                         </Nav>
                         <Nav>
-                            <div onClick={() => setTheme(!theme)} className="flex md:order-2">
+                            <div onClick={() => setTheme(!theme)} className="me-3">
                                 {
                                     theme ?
                                         <Button variant="success">
@@ -47,6 +47,7 @@ const Header = () => {
                                 }
                                 <Navbar.Toggle />
                             </div>
+                            <Button variant='secondary'>Login</Button>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
