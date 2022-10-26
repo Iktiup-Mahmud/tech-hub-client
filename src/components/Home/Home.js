@@ -11,7 +11,7 @@ const Home = () => {
                 <h1>Wellcome!</h1>
                 <h3>To Our Website. (Tech-Hub)</h3>
                 <p>We have some courses related programing. That will help you to learn about CS word.</p>
-                <Button className='mt-5' variant="success"><Link to='/courses' className='text-white'><h4>Get Start <FaArrowRight/></h4></Link></Button>
+                <Button className='mt-5 d-flex align-items-center' variant="success"><Link to='/courses' className='text-white d-flex align-items-center m-0'><h4 className='m-2'>Get Start <FaArrowRight/></h4></Link></Button>
             </div>
         </div>
     );
