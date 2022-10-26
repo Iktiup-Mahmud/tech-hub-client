@@ -8,15 +8,15 @@ const Courses = () => {
     const courses = useLoaderData()
 
     return (
-        <div>
+        <div className='bg-dark'>
             <Container>
                 <Row>
-                    <Col lg={3} className='border border-dark mt-5'>
-                        <h1>All courses</h1>
+                    <Col lg={3} className='mt-5'>
+                        <h1 className='text-light'>All courses</h1>
                         <LeftSideCourses courses={courses}></LeftSideCourses>
                     </Col>
-                    <Col className='border border-dark'>
-                        <h1>Courses</h1>
+                    <Col className=''>
+                        <h1 className='text-light'>Courses</h1>
                         <RightSideCourses></RightSideCourses>
                     </Col>
                 </Row>

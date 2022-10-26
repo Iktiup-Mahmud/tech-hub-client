@@ -11,11 +11,15 @@ const LeftSideCourses = ({courses}) => {
 // },[])
 
     return (
-        <div>
+        <div className=''>
             {
-                courses.map(course => <p key={course.id}>
-                    <Link to={`/courses/${course.id}`}>{course.name}</Link>
-                </p>)
+                courses.map(course => <ul className='text-success'>
+                    <li>
+                        <h6 key={course.id}>
+                            <Link className='text-success' to={`/courses/${course.id}`}>{course.name}</Link>
+                        </h6>
+                    </li>
+                </ul>)
             }
         </div>
     );
