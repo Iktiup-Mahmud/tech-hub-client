@@ -22,7 +22,7 @@ const CoursesCard = ({ course }) => {
                 </Card.Body>
                 <Card.Footer className='d-flex justify-content-between'>
                     <h6 className='text-success d-flex align-items-center'>{price}</h6>
-                    <Button variant='success'><Link className='text-light' to={`/courses/${id}`}>Details<FaArrowRight /></Link></Button>
+                    <Button variant='success'><Link className='text-light text-decoration-none' to={`/courses/${id}`}>Details<FaArrowRight /></Link></Button>
                 </Card.Footer>
             </Card>
         </div>
