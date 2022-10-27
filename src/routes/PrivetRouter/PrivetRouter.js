@@ -1,12 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
-const PrivetRouter = () => {
-    return (
-        <div>
-            <Link to='/test'>Test</Link>
-        </div>
-    );
+const PrivetRouter = ({ children }) => {
+    const { user } = useContext(AuthContext)
+    const location = useLocation();
+
+    if (!user) {
+        return <Navigate to={'/login'} state={{ from: location }} replace></Navigate>
+    }
+
+    return children
 };
 
 export default PrivetRouter;

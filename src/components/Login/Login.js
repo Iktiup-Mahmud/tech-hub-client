@@ -1,15 +1,24 @@
 import React, { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import toast, { Toaster } from 'react-hot-toast';
+import { useState } from 'react';
 
 
 const Login = () => {
+    const [error, setError ] = useState('');
     const { login, loginProvider } = useContext(AuthContext);
     const providerGoogle = new GoogleAuthProvider();
     const providerGithub = new GithubAuthProvider();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/'
+
+    const notify = () => toast('Here is your toast.');
 
     const handelSubmit = e => {
         e.preventDefault()
@@ -24,8 +33,13 @@ const Login = () => {
             .then(res => {
                 const user = res.user;
                 console.log(user)
+                notify()
+                form.reset()
+                navigate(from, { replace: true })
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                setError(error.message)
+                console.error(error)})
     }
 
     const handelGoogleLogin = () => {
@@ -67,7 +81,8 @@ const Login = () => {
                                             <Form.Label>Password</Form.Label>
                                             <Form.Control name='password' type="password" placeholder="Password" required />
                                         </Form.Group>
-
+                                        
+                                        <p className='text-danger'>{error}</p>
 
                                         <div className='text-center'>
                                             <Button variant='success' type='submit' className='mb-2 px-3'>Login</Button>

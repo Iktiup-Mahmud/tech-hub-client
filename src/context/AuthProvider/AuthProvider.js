@@ -11,6 +11,7 @@ const auth = getAuth(app);
 const AuthProvider = ({children}) => {
 
     const [user, setUser ] = useState(null)
+    
 
     const login = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)

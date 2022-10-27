@@ -9,6 +9,8 @@ import Page404 from "../../components/Page404/Page404";
 import Main from "../../layout/Main";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
+import PrivetRouter from "../PrivetRouter/PrivetRouter";
+import Checkout from "../../components/Checkout/Checkout";
 
 export const Router = createBrowserRouter([
     {
@@ -53,6 +55,11 @@ export const Router = createBrowserRouter([
                 path: '/register',
                 element: <Register></Register>
             },
+            {
+                path: '/checkout/:id',
+                element: <PrivetRouter><Checkout></Checkout></PrivetRouter>,
+                loader: ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
+            }
         ]
     },
     {

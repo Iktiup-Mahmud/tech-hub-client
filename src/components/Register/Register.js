@@ -1,4 +1,4 @@
-import { GithubAuthProvider, GoogleAuthProvider, updateProfile } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
@@ -35,8 +35,8 @@ const Register = () => {
             photoURL: phUrl
         }
         updateUserProfile(profile)
-        .then(console.log('updated'))
-        .catch(error => console.error(error))
+            .then(console.log('updated'))
+            .catch(error => console.error(error))
     }
 
     const handelGoogleLogin = () => {
@@ -75,7 +75,7 @@ const Register = () => {
 
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>Photo URL</Form.Label>
-                                            <Form.Control name='photoUrl' type="text" placeholder="Photo URL"  />
+                                            <Form.Control name='photoUrl' type="text" placeholder="Photo URL" />
                                         </Form.Group>
 
                                         <Form.Group className="mb-3" controlId="formBasicEmail">

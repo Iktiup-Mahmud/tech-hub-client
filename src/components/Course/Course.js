@@ -1,12 +1,12 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import Image from 'react-bootstrap/Image'
 import { FaClock, FaStar, FaRegUser } from "react-icons/fa";
 import { Button } from 'react-bootstrap';
 
 const Course = () => {
     const course = useLoaderData();
-    const { name, image, author, price, duration, total_enroll, rating, description } = course;
+    const { id, name, image, author, price, duration, total_enroll, rating, description } = course;
 
     return (
         <div className='bg-dark'>
@@ -33,7 +33,7 @@ const Course = () => {
                     <h5>{description}</h5>
                 </div>
                 <div className='mt-5 d-flex justify-content-center'>
-                    <Button variant='success mb-5'>Get Premium Access</Button>
+                    <Link to={`/checkout/${id}`}><Button variant='success mb-5'>Get Premium Access</Button></Link>
                 </div>
             </div>
         </div>
