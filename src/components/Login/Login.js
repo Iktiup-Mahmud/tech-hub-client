@@ -3,11 +3,12 @@ import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 
 const Login = () => {
-    const { login } = useContext(AuthContext);
-
+    const { login, googleLogin } = useContext(AuthContext);
+    const providerGoogle = new GoogleAuthProvider();
 
     const handelSubmit = e => {
         e.preventDefault()
@@ -19,11 +20,20 @@ const Login = () => {
         console.log(email, password)
 
         login(email, password)
-        .then(res => {
-            const user = res.user;
-            console.log(user)
-        })
-        .catch(error => console.error(error))
+            .then(res => {
+                const user = res.user;
+                console.log(user)
+            })
+            .catch(error => console.error(error))
+    }
+
+    const handelGoogleLogin = () => {
+        googleLogin(providerGoogle)
+            .then(res => {
+                const user = res.user;
+                console.log(user)
+            })
+            .catch(error => console.error(error))
     }
 
     return (
@@ -52,9 +62,15 @@ const Login = () => {
                                         <div className='text-center'>
                                             <Button variant='success' type='submit' className='mb-2 px-3'>Login</Button>
                                         </div>
-                                        <div className='d-flex justify-content-center py-1'>
-                                            <h3 className='me-3'><FaGoogle /></h3>
-                                            <h3><FaGithub /></h3>
+                                        <div className='d-flex justify-content-center py-1 '>
+                                            <div onClick={handelGoogleLogin} className='me-3'>
+                                                <h3 className='text-center'><FaGoogle /></h3>
+                                                <p>Google</p>
+                                            </div>
+                                            <div>
+                                                <h3 className='text-center'><FaGithub /></h3>
+                                                <p>Github</p>
+                                            </div>
                                         </div>
                                         <div className='text-center'>
                                             <p>Don't have an account? <Link to='/register'>Please register</Link></p>
