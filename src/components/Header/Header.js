@@ -37,7 +37,6 @@ const Header = () => {
                             <NavLink className='text-decoration-none text-secondary fw-semibold ms-3 fs-5' to='/courses'>Courses</NavLink>
                             <NavLink className='text-decoration-none text-secondary fw-semibold ms-3 fs-5' to='/faq'>FAQ</NavLink>
                             <NavLink className='text-decoration-none text-secondary fw-semibold ms-3 fs-5' to='/blog'>Blog</NavLink>
-                            <NavLink className='text-decoration-none text-secondary fw-semibold ms-3 fs-5' to='/about'>About</NavLink>
 
 
                         </Nav>
