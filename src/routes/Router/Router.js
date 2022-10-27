@@ -7,6 +7,8 @@ import Blog from "../../components/Blog/Blog";
 import About from "../../components/About/About";
 import Page404 from "../../components/Page404/Page404";
 import Main from "../../layout/Main";
+import Login from "../../components/Login/Login";
+import Register from "../../components/Register/Register";
 
 export const Router = createBrowserRouter([
     {
@@ -42,6 +44,14 @@ export const Router = createBrowserRouter([
             {
                 path: '/about',
                 element: <About></About>
+            },
+            {
+                path: '/login',
+                element: <Login></Login>
+            },
+            {
+                path: '/register',
+                element: <Register></Register>
             },
         ]
     },
