@@ -28,12 +28,12 @@ export const Router = createBrowserRouter([
             {
                 path: '/courses',
                 element: <Courses></Courses>,
-                loader: () => fetch('http://localhost:5000/courses')
+                loader: () => fetch('https://tech-hqcftck3y-iktiup-mahmud.vercel.app/courses')
             },
             {
                 path: '/courses/:id',
                 element: <Course></Course>,
-                loader: ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
+                loader: ({ params }) => fetch(`https://tech-hub-azure.vercel.app/courses/${params.id}`)
             },
             {
                 path: '/faq',
@@ -58,7 +58,7 @@ export const Router = createBrowserRouter([
             {
                 path: '/checkout/:id',
                 element: <PrivetRouter><Checkout></Checkout></PrivetRouter>,
-                loader: ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
+                loader: ({ params }) => fetch(`https://tech-hub-azure.vercel.app/courses/${params.id}`)
             }
         ]
     },

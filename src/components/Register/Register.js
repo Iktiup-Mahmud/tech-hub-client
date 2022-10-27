@@ -1,14 +1,20 @@
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
+    const [error, setError] = useState('');
     const { loginProvider, createUser, updateUserProfile } = useContext(AuthContext);
     const providerGoogle = new GoogleAuthProvider();
     const providerGithub = new GithubAuthProvider();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/'
+
     const handelSubmit = e => {
         e.preventDefault()
 
@@ -25,8 +31,13 @@ const Register = () => {
                 const user = res.user;
                 console.log(user)
                 handelUpdateUser(name, photoUrl)
+                form.reset()
+                navigate(from, { replace: true })
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                setError(error.message)
+                console.error(error)
+            })
     }
 
     const handelUpdateUser = (name, phUrl) => {
@@ -36,7 +47,10 @@ const Register = () => {
         }
         updateUserProfile(profile)
             .then(console.log('updated'))
-            .catch(error => console.error(error))
+            .catch(error => {
+                setError(error.message)
+                console.error(error)
+            })
     }
 
     const handelGoogleLogin = () => {
@@ -45,7 +59,10 @@ const Register = () => {
                 const user = res.user;
                 console.log(user)
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                setError(error.message)
+                console.error(error)
+            })
     }
 
     const handelGithubLogin = () => {
@@ -54,7 +71,10 @@ const Register = () => {
                 const user = res.user;
                 console.log(user)
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                setError(error.message)
+                console.error(error)
+            })
     }
     return (
         <div className='mt-5'>
@@ -88,6 +108,7 @@ const Register = () => {
                                             <Form.Control name='password' type="password" placeholder="Password" required />
                                         </Form.Group>
 
+                                        <p className='text-danger'>{error}</p>
 
                                         <div className='text-center'>
                                             <Button variant='success' type='submit' className='mb-3 px-3'>Register</Button>

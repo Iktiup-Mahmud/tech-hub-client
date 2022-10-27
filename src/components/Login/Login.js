@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
-import toast, { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
 
 
@@ -17,8 +16,6 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location?.state?.from?.pathname || '/'
-
-    const notify = () => toast('Here is your toast.');
 
     const handelSubmit = e => {
         e.preventDefault()
@@ -33,7 +30,6 @@ const Login = () => {
             .then(res => {
                 const user = res.user;
                 console.log(user)
-                notify()
                 form.reset()
                 navigate(from, { replace: true })
             })
@@ -48,7 +44,10 @@ const Login = () => {
                 const user = res.user;
                 console.log(user)
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                setError(error.message)
+                console.error(error)
+            })
     }
 
     const handelGithubLogin = () => {
@@ -57,7 +56,10 @@ const Login = () => {
                 const user = res.user;
                 console.log(user)
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                setError(error.message)
+                console.error(error)
+            })
     }
 
     return (
