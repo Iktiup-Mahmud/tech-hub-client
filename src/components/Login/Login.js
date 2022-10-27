@@ -3,19 +3,16 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
-import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { useState } from 'react';
 
 
 const Login = () => {
     const [error, setError ] = useState('');
-    const { login, loginProvider } = useContext(AuthContext);
-    const providerGoogle = new GoogleAuthProvider();
-    const providerGithub = new GithubAuthProvider();
+    const { login } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location?.state?.from?.pathname || '/'
+    const from = location.state?.from?.pathname || '/'
 
     const handelSubmit = e => {
         e.preventDefault()
@@ -38,31 +35,6 @@ const Login = () => {
                 console.error(error)})
     }
 
-    const handelGoogleLogin = () => {
-        loginProvider(providerGoogle)
-            .then(res => {
-                const user = res.user;
-                console.log(user)
-                navigate(from, { replace: true })
-            })
-            .catch(error => {
-                setError(error.message)
-                console.error(error)
-            })
-    }
-
-    const handelGithubLogin = () => {
-        loginProvider(providerGithub)
-            .then(res => {
-                const user = res.user;
-                console.log(user)
-                navigate(from, { replace: true })
-            })
-            .catch(error => {
-                setError(error.message)
-                console.error(error)
-            })
-    }
 
     return (
         <div className='mt-5'>
@@ -91,26 +63,10 @@ const Login = () => {
                                         <div className='text-center'>
                                             <Button variant='success' type='submit' className='mb-2 px-3'>Login</Button>
                                         </div>
-                                        <div className='d-flex justify-content-center py-1 '>
-                                            <div onClick={handelGoogleLogin} className='me-3'>
-                                                <h3 className='text-center'><FaGoogle /></h3>
-                                                <p>Google</p>
-                                            </div>
-                                            <div onClick={handelGithubLogin}>
-                                                <h3 className='text-center'><FaGithub /></h3>
-                                                <p>Github</p>
-                                            </div>
-                                        </div>
+                                        
                                         <div className='text-center'>
                                             <p>Don't have an account? <Link to='/register'>Please register</Link></p>
                                         </div>
-
-                                        {/* <hr className="my-4"> */}
-
-                                        {/* <button className="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
-                                                type="submit"><i className="fab fa-google me-2"></i> Sign in with google</button>
-                                            <button className="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
-                                                type="submit"><i className="fab fa-facebook-f me-2"></i>Sign in with facebook</button> */}
 
                                     </div>
                                 </div>
