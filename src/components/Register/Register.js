@@ -1,4 +1,4 @@
-import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider, updateProfile } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
-    const { loginProvider, createUser } = useContext(AuthContext);
+    const { loginProvider, createUser, updateUserProfile } = useContext(AuthContext);
     const providerGoogle = new GoogleAuthProvider();
     const providerGithub = new GithubAuthProvider();
     const handelSubmit = e => {
@@ -24,8 +24,19 @@ const Register = () => {
             .then(res => {
                 const user = res.user;
                 console.log(user)
+                handelUpdateUser(name, photoUrl)
             })
             .catch(error => console.error(error))
+    }
+
+    const handelUpdateUser = (name, phUrl) => {
+        const profile = {
+            displayName: name,
+            photoURL: phUrl
+        }
+        updateUserProfile(profile)
+        .then(console.log('updated'))
+        .catch(error => console.error(error))
     }
 
     const handelGoogleLogin = () => {
@@ -95,12 +106,6 @@ const Register = () => {
                                             <p>Already have an account? <Link to='/login'>Please login</Link></p>
                                         </div>
 
-                                        {/* <hr className="my-4"> */}
-
-                                        {/* <button className="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
-                                                type="submit"><i className="fab fa-google me-2"></i> Sign in with google</button>
-                                            <button className="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
-                                                type="submit"><i className="fab fa-facebook-f me-2"></i>Sign in with facebook</button> */}
 
                                     </div>
                                 </div>

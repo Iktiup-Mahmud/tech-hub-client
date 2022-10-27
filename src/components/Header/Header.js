@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import { Button, Container, Image, Nav, Navbar } from 'react-bootstrap';
+import { FaUser } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Header = () => {
     const [theme, setTheme] = useState(true);
+
+    const { user, logOut } = useContext(AuthContext)
+
+    const handelLogout = () => {
+        logOut()
+            .then(() => console.log('logout successfull'))
+            .catch(error => console.error(error))
+    }
+
 
     return (
         <div>
@@ -27,11 +39,6 @@ const Header = () => {
                             <NavLink className='text-decoration-none text-secondary fw-semibold ms-3 fs-5' to='/blog'>Blog</NavLink>
                             <NavLink className='text-decoration-none text-secondary fw-semibold ms-3 fs-5' to='/about'>About</NavLink>
 
-                            {/* <Nav.Link href="#pricing">Pricing</Nav.Link>
-                            <Nav.Link href="#deets">More deets</Nav.Link>
-                            <Nav.Link eventKey={2} href="#memes">
-                                Dank memes
-                            </Nav.Link> */}
 
                         </Nav>
                         <Nav>
@@ -47,9 +54,40 @@ const Header = () => {
                                 }
                                 <Navbar.Toggle />
                             </div>
-                            <Link className='' to='/login'>
-                                <Button variant='secondary'>Login</Button>
-                            </Link>
+                            <div>
+                                {
+                                    user?.uid ?
+
+                                        <div className='d-flex'>
+                                            {
+                                                user?.photoURL ?
+                                                    <div className='pe-3 d-flex align-items-center ' >
+
+                                                        <p className='text-light m-0 pe-3'>Wellcome, {
+                                                                user?.displayName.length > 6 ?
+                                                                    user?.displayName.slice(0, 6) :
+                                                                    user?.displayName
+                                                            } </p>
+
+                                                        <Image title={user?.displayName} style={{ height: '35px' }} roundedCircle src={user?.photoURL}></Image>
+                                                    </div>
+                                                    :
+                                                    <div>
+                                                        <FaUser className='text-light' />
+                                                    </div>
+                                            }
+                                            <Button onClick={handelLogout} variant='danger'>Logout</Button>
+                                        </div>
+
+
+                                        :
+
+                                        <Link className='' to='/login'>
+                                            <Button variant='secondary'>Login</Button>
+                                        </Link>
+
+                                }
+                            </div>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
