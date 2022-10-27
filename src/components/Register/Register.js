@@ -6,19 +6,21 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
-    const { login, loginProvider } = useContext(AuthContext);
+    const { loginProvider, createUser } = useContext(AuthContext);
     const providerGoogle = new GoogleAuthProvider();
     const providerGithub = new GithubAuthProvider();
     const handelSubmit = e => {
         e.preventDefault()
 
         const form = e.target;
+        const name = form.name.value;
+        const photoUrl = form.photoUrl.value;
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(email, password)
+        console.log(name, photoUrl, email, password)
 
-        login(email, password)
+        createUser(email, password)
             .then(res => {
                 const user = res.user;
                 console.log(user)
