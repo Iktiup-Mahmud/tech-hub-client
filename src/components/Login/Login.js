@@ -3,12 +3,13 @@ import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 
 const Login = () => {
-    const { login, googleLogin } = useContext(AuthContext);
+    const { login, loginProvider } = useContext(AuthContext);
     const providerGoogle = new GoogleAuthProvider();
+    const providerGithub = new GithubAuthProvider();
 
     const handelSubmit = e => {
         e.preventDefault()
@@ -28,7 +29,16 @@ const Login = () => {
     }
 
     const handelGoogleLogin = () => {
-        googleLogin(providerGoogle)
+        loginProvider(providerGoogle)
+            .then(res => {
+                const user = res.user;
+                console.log(user)
+            })
+            .catch(error => console.error(error))
+    }
+
+    const handelGithubLogin = () => {
+        loginProvider(providerGithub)
             .then(res => {
                 const user = res.user;
                 console.log(user)
@@ -67,7 +77,7 @@ const Login = () => {
                                                 <h3 className='text-center'><FaGoogle /></h3>
                                                 <p>Google</p>
                                             </div>
-                                            <div>
+                                            <div onClick={handelGithubLogin}>
                                                 <h3 className='text-center'><FaGithub /></h3>
                                                 <p>Github</p>
                                             </div>
