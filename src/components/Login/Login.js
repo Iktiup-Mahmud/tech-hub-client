@@ -4,11 +4,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { useState } from 'react';
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 
 const Login = () => {
     const [error, setError ] = useState('');
-    const { login } = useContext(AuthContext);
+    const { login, loginProvider } = useContext(AuthContext);
+    const providerGoogle = new GoogleAuthProvider();
+    const providerGithub = new GithubAuthProvider();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -33,6 +36,32 @@ const Login = () => {
             .catch(error => {
                 setError(error.message)
                 console.error(error)})
+    }
+
+    const handelGoogleLogin = () => {
+        loginProvider(providerGoogle)
+            .then(res => {
+                const user = res.user;
+                console.log(user)
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+                setError(error.message)
+                console.error(error)
+            })
+    }
+
+    const handelGithubLogin = () => {
+        loginProvider(providerGithub)
+            .then(res => {
+                const user = res.user;
+                console.log(user)
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+                setError(error.message)
+                console.error(error)
+            })
     }
 
 
@@ -62,6 +91,17 @@ const Login = () => {
 
                                         <div className='text-center'>
                                             <Button variant='success' type='submit' className='mb-2 px-3'>Login</Button>
+                                        </div>
+
+                                        <div className='d-flex justify-content-center py-1 '>
+                                            <div onClick={handelGoogleLogin} className='me-3'>
+                                                <h3 className='text-center'><FaGoogle /></h3>
+                                                <p>Google</p>
+                                            </div>
+                                            <div onClick={handelGithubLogin}>
+                                                <h3 className='text-center'><FaGithub /></h3>
+                                                <p>Github</p>
+                                            </div>
                                         </div>
                                         
                                         <div className='text-center'>

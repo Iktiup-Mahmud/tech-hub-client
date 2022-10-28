@@ -62,21 +62,21 @@ const Header = () => {
                                                 user?.photoURL ?
                                                     <div className='pe-3 d-flex align-items-center ' >
 
-                                                        <p className='text-light m-0 pe-3'>Wellcome, {
-                                                                user?.displayName.length > 6 ?
-                                                                    user?.displayName.slice(0, 6) :
-                                                                    user?.displayName
-                                                            } </p>
+                                                        {/* <p className='text-light m-0 pe-3'>Wellcome, {
+                                                            user?.displayName?.length > 6 ?
+                                                                user?.displayName.slice(0, 6) :
+                                                                user?.displayName
+                                                        } </p> */}
 
                                                         <Image title={user?.displayName} style={{ height: '35px' }} roundedCircle src={user?.photoURL}></Image>
                                                     </div>
                                                     :
                                                     <div className='pe-3 d-flex align-items-center'>
-                                                        <p className='text-light m-0 pe-3'>Wellcome, {
-                                                            user?.displayName.length > 6 ?
+                                                        {/* <p className='text-light m-0 pe-3'>Wellcome, {
+                                                            user?.displayName?.length > 6 ?
                                                                 user?.displayName.slice(0, 6) :
                                                                 user?.displayName
-                                                        } </p>
+                                                        } </p> */}
                                                         <FaUser className='text-light' title={user?.displayName} />
                                                     </div>
                                             }
